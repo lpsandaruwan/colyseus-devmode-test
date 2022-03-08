@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/colyseus.js@^0.14.0/dist/colyseus.js"></script>
+
+    <script>
+      var client = new Colyseus.Client('ws://localhost:2567');
+      client.create("my_room").then(room => {
+        console.log(room.sessionId, "joined", room.name);
+        room.send("up", {"msg": Date.now().toString()});
+    }).catch(e => {
+        console.log("JOIN ERROR", e);
+    });
+
+    </script>
+  </head>
+  <body>
+    <header></header>
+    <main></main>
+    <footer></footer>
+  </body>
+</html>
