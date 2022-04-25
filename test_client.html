@@ -3,22 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="https://unpkg.com/colyseus.js@^0.14.0/dist/colyseus.js"></script>
+    <script src="/home/lahirup/Desktop/Colyseus/client_fork/colyseus.js/dist/colyseus.js"></script>
 
     <script>
       var client = new Colyseus.Client('ws://localhost:2567');
+      var _room;
       client.create("my_room").then(room => {
         console.log(room.sessionId, "joined", room.name);
-        room.send("up", {"msg": Date.now().toString()});
+        console.log(room);
+        _room = room;
     }).catch(e => {
         console.log("JOIN ERROR", e);
     });
+
+    function sendMessage() {
+      try {
+        _room.send("up", {"msg": Date.now().toString()});
+        console.log(_room.state);
+       } catch(err) {
+        console.log(err);
+       }
+    }
 
     </script>
   </head>
   <body>
     <header></header>
-    <main></main>
+    <main>
+      <button onclick="sendMessage()">Update State</button>
+    </main>
     <footer></footer>
   </body>
 </html>
